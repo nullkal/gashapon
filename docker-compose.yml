@@ -1,0 +1,31 @@
+version: '2'
+services:
+  db:
+    image: mariadb:10.1
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DB: gasha
+    volumes:
+      - ./data/db:/var/lib/mysql
+
+  web:
+    build: .
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - .:/app
+      - /app/tmp
+    links:
+      - db
+    expose:
+      - "3000"
+
+  dev-server:
+    build: ./frontend
+    command: yarn run dev-server
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - web
+    ports:
+      - "8080:8080"

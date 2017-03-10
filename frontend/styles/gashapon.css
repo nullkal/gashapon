@@ -1,0 +1,65 @@
+@import "~normalize.css/normalize.css";
+
+body {
+  background: #eeeeee;
+  overflow: hidden;
+}
+
+#outer-frame {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+}
+
+#inner-frame {
+  position: relative;
+}
+
+.card {
+  width: 256px;
+  height: 414px;
+  perspective: 1000;
+  transform: translate(-50%, -50%);
+}
+
+.card__inner {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: 0.6s;
+}
+
+.card__front,
+.card__back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 256px;
+  height: 414px;
+  border-radius: 8px;
+  backface-visibility: hidden;
+}
+
+.card__front {
+  background: #fff;
+  transform: rotateY(180deg);
+}
+
+.card__content {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  text-align: center;
+  transform: translateY(-50%);
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.card__back {
+  background: #f00;
+}
+
+.card__opened > .card__inner {
+  transform: rotateY(180deg);
+}
